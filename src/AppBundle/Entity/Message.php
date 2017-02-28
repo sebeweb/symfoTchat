@@ -34,7 +34,7 @@ class Message implements JsonSerializable {
     /**
      * @var stdClass
      *
-     * @ORM\ManyToOne(targetEntity="Utilisateur")
+     * @ORM\ManyToOne(targetEntity="Utilisateur",cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(name="fk_utilisateur", referencedColumnName="id")
      */
     private $utilisateur;
@@ -124,7 +124,7 @@ class Message implements JsonSerializable {
     public function jsonSerialize() {
         return array(
             'id' => $this->id,
-            'utilisateur' => $this->utilisateur->getEmail(),
+            'utilisateur' => $this->getUtilisateur(),
             'message' => $this->message,
             'heure' => $this->heure,
         );

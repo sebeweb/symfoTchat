@@ -8,11 +8,11 @@ use DateTime;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @Route("tchat")
+ * @Route("/tchat")
  */
 class DefaultController extends Controller {
 
@@ -32,15 +32,16 @@ class DefaultController extends Controller {
     /**
      * @Route("/users")
      */
-    public function updateUsers() {
+    public function getUsers() {
 
-        return new JsonResponse($this->getDoctrine()->getRepository(Utilisateur::class)->findAll());
+        return new JsonResponse($this->getDoctrine()->getRepository(Utilisateur::class)->findBy(array("connected" => "1")));
+//        return new JsonResponse($this->getDoctrine()->getRepository(Utilisateur::class)->findAll());
     }
 
     /**
      * @Route("/messages")
      */
-    public function updateMessages() {
+    public function getMessages() {
 
         return new JsonResponse($this->getDoctrine()->getRepository(Message::class)->findAll());
     }
@@ -64,17 +65,6 @@ class DefaultController extends Controller {
         return new Response("ok");
     }
 
-    /**
-     * @Route("/logout")
-     * @param Request $r
-     */
-    public function logout(Request $r) {
-        $user = $this->getUser();
-        $user->setConnected(false);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($user);
-        $em->flush();
-        return new Response("ok");
-    }
+
 
 }
