@@ -175,11 +175,19 @@ class Utilisateur implements UserInterface,  Serializable ,  JsonSerializable
     }
 
     public function serialize() {
-        
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password
+        ));
     }
 
     public function unserialize($serialized) {
-        
+        list(
+                $this->id,
+                $this->email,
+                $this->password
+                ) = unserialize($serialized);
     }
 
     public function jsonSerialize() {

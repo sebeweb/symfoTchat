@@ -5,7 +5,7 @@
  */
 
 $(document).ready(function(){
-    updateUsers();
+    getUsers();
 });
 
 
@@ -22,14 +22,15 @@ $("form").submit(function(e){
         url: "./message/add",
         success: function (data, textStatus, jqXHR) {
             $("#msg").val("");
-            updateMessages();
+            getMessages();
         }
+        
         
     });
 });
 
 
-function updateUsers(){
+function getUsers(){
     $.ajax({
         async: true,
         type: 'GET',
@@ -42,14 +43,14 @@ function updateUsers(){
                 $("#users").append("<p>@"+this.email+"</p>");
             });
             setTimeout(function(){
-            updateMessages();
+            getMessages();
         },1000);
         }
         
     });
 }
 
-function updateMessages(){
+function getMessages(){
     $.ajax({
         async: true,
         type: 'GET',
@@ -59,13 +60,13 @@ function updateMessages(){
             $("#messages").empty();
             var liste = $.parseJSON(data);
             $(liste).each(function(e){
-                $("#messages").append("<p>"+this.heure.date+"</p><p>@"+this.utilisateur+" : "+ this.message+"</p><br/>");
+                $("#messages").append("<p>"+this.heure.date+"</p><p>@"+this.utilisateur.email+" : "+ this.message+"</p><br/>");
                 
             });
             
                 $("#messages").animate({ scrollTop: $('#messages').height()+10000}, 1000);
             setTimeout(function(){
-            updateUsers();
+            getUsers();
         },1000);
         }
     });
