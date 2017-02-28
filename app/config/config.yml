@@ -68,3 +68,8 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+    
+services:
+    login_handle:
+        class: AppBundle\Controller\LoginController
+        arguments: ["@doctrine.orm.default_entity_manager"]

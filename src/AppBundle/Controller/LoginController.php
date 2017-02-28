@@ -18,33 +18,31 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @author loic
  */
-class LoginController extends Controller {
+class LoginController extends Controller{
 
     /**
      * @Route("/")
      * @param Request $r
      */
-    public function red(Request $r){
+    public function red(Request $r) {
         return $this->redirectToRoute("homepage");
     }
-    
-    
+
     /**
      * @Route("/login")
      */
-    public function loginAction(){
-         return $this->render('default/login.html.twig');
+    public function loginAction() {
+        return $this->render('default/login.html.twig');
     }
-    
+
     /**
      * @Route("/login_check",name="log")
      * @param \AppBundle\Controller\Request $r
      */
-    public function loginCheck(Request $r){
+    public function loginCheck(Request $r) {
         
     }
-    
-    
+
     /**
      * @Route("/logout")
      */

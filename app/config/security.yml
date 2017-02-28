@@ -31,5 +31,6 @@ security:
             logout:
                 path:  /logout
                 target: /
+                success_handler: login_handle
     access_control:
         - { path: ^/tchat, roles: 'ROLE_USER' }
