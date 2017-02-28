@@ -25,7 +25,7 @@ class DefaultController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
-        // replace this example code with whatever you need
+        $request->getSession()->set("usr", $user->getId());
         return $this->render('default/index.html.twig');
     }
 

@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Utilisateur;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,12 +50,17 @@ class LoginController extends Controller {
      * @Route("/logout")
      */
     public function logout(Request $r) {
-        $user = $this->getUser();
-        $user->setConnected(false);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($user);
-        $em->flush();
         return new Response("", 401);
     }
-
+/**
+     * @Route("/disconnect/{id}")
+     */
+    public function disconnect(Request $r,$id){
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getDoctrine()->getRepository(Utilisateur::class)->find($id);
+        $user->setConnected(false);
+        $em->persist($user);
+        $em->flush();
+        return $this->redirectToRoute("homepage");
+    }
 }
