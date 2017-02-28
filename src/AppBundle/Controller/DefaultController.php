@@ -11,16 +11,22 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("tchat")
+ */
 class DefaultController extends Controller {
 
     /**
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request) {
+        $user = $this->getUser();
+        $user->setConnected(true);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
         // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-                    'base_dir' => realpath($this->getParameter('kernel.root_dir') . '/..') . DIRECTORY_SEPARATOR,
-        ]);
+        return $this->render('default/index.html.twig');
     }
 
     /**
@@ -54,6 +60,19 @@ class DefaultController extends Controller {
         $message->setHeure($d);
         $em = $this->getDoctrine()->getManager();
         $em->persist($message);
+        $em->flush();
+        return new Response("ok");
+    }
+
+    /**
+     * @Route("/logout")
+     * @param Request $r
+     */
+    public function logout(Request $r) {
+        $user = $this->getUser();
+        $user->setConnected(false);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
         $em->flush();
         return new Response("ok");
     }

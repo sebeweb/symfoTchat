@@ -32,17 +32,17 @@ function html() {
 }
 function css() {
     var wTchat = $('#wrapper').width();
-    if (wTchat > 768) {
-        $('body').height(($(window).height() - 20) + "px");
-        $('#wrapper').height($('body').height() + "px");
-        $('#left').height($('body').height() + "px");
-        $('#users').height(($('#left').height() - 40) + "px");
-        $('#right').height($('body').height() + "px");
-        $('#top').height(($('#right').height() - 120) + "px");
-        $('#messages').height(($('#top').height() - 40) + "px");
-        $('#bottom').height("100px");
-        $('#message').height(($('#bottom').height() - 40) + "px");
-    } else {
-        $("#right").css({"width":"100%"});
+    if (wTchat < 768) {
+        $("#right").css({"width": "100%", "z-index": "1"});
+
     }
+    $('body').height(($(window).height() - 20) + "px");
+    $('#wrapper').height($('body').height() + "px");
+    $('#left').height($('body').height() + "px");
+    $('#users').height(($('#left').height() - 40) + "px");
+    $('#right').height($('body').height() + "px");
+    $('#top').height(($('#right').height() - 120) + "px");
+    $('#messages').height(($('#top').height() - 40) + "px");
+    $('#bottom').height("100px");
+    $('#message').height(($('#bottom').height() - 40) + "px");
 }
