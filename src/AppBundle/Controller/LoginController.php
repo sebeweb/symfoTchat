@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Utilisateur;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,41 +19,48 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @author loic
  */
-class LoginController extends Controller{
+class LoginController extends Controller {
 
     /**
      * @Route("/")
      * @param Request $r
      */
-    public function red(Request $r) {
+    public function red(Request $r){
         return $this->redirectToRoute("homepage");
     }
-
+    
+    
     /**
      * @Route("/login")
      */
-    public function loginAction() {
-        return $this->render('default/login.html.twig');
+    public function loginAction(){
+         return $this->render('default/login.html.twig');
     }
-
+    
     /**
      * @Route("/login_check",name="log")
      * @param \AppBundle\Controller\Request $r
      */
-    public function loginCheck(Request $r) {
+    public function loginCheck(Request $r){
         
     }
-
+    
+    
     /**
      * @Route("/logout")
      */
     public function logout(Request $r) {
-        $user = $this->getUser();
-        $user->setConnected(false);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($user);
-        $em->flush();
         return new Response("", 401);
     }
-
+/**
+     * @Route("/disconnect/{id}")
+     */
+    public function disconnect(Request $r,$id){
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getDoctrine()->getRepository(Utilisateur::class)->find($id);
+        $user->setConnected(false);
+        $em->persist($user);
+        $em->flush();
+        return $this->redirectToRoute("homepage");
+    }
 }

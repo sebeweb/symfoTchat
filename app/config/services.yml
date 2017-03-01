@@ -9,4 +9,7 @@ services:
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     tchat:
         class: AppBundle\Service\MessageTchat
-        
+#        nom de notre service
+    logout_handler:
+#        la route du fichier qui contient les methodes pour notre services
+        class: AppBundle\Handler\LogoutHandler

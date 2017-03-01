@@ -31,6 +31,7 @@ security:
             logout:
                 path:  /logout
                 target: /
-                success_handler: login_handle
+#                on capture le succes de deconnection et on appel notre service
+                success_handler: logout_handler
     access_control:
         - { path: ^/tchat, roles: 'ROLE_USER' }

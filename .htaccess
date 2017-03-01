@@ -1,5 +1,5 @@
 RewriteEngine on
-RewriteCond %{HTTP_HOST} ^www.symfoTchat.fr$ [NC,OR]
-RewriteCond %{HTTP_HOST} ^www.symfoTchat.fr$
+    RewriteCond %{HTTP_HOST} ^www.tchat.com$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.tchat.com$
 RewriteCond %{REQUEST_URI} !web/
 RewriteRule (.*) /web/$1 [L]
